@@ -1,10 +1,11 @@
-#include "MyRect.h"
+#include "player.h"
 #include <QDebug>
 #include <QKeyEvent>
 #include "Obstacle.h"
 #include <QGraphicsScene>
+#include "RoadLines.h"
 
-void MyRect::keyPressEvent(QKeyEvent *event){
+void Player::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_Left) {
         if(pos().x() > 150){
             setPos (x () -15,y());
@@ -17,8 +18,14 @@ void MyRect::keyPressEvent(QKeyEvent *event){
     }
 }
 
-void MyRect::spawn()
+void Player::spawn()
 {
     Obstacle * obstacle = new Obstacle;
     scene()->addItem(obstacle);
+}
+
+void Player::lines(){
+    RoadLines * newline = new RoadLines;
+    scene()->addItem(newline);
+
 }

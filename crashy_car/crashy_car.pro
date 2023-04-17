@@ -11,13 +11,21 @@ CONFIG += c++17
 CONFIG+=sdk_no_version_check
 
 SOURCES += \
-    MyRect.cpp \
+    Game.cpp \
+    Health.cpp \
     Obstacle.cpp \
-    main.cpp
+    RoadLines.cpp \
+    Score.cpp \
+    main.cpp \
+    player.cpp
 
 HEADERS += \
-    MyRect.h \
-    Obstacle.h
+    Game.h \
+    Health.h \
+    Obstacle.h \
+    RoadLines.h \
+    Score.h \
+    player.h
 
 FORMS +=
 
@@ -25,3 +33,6 @@ FORMS +=
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/graphics">
+        <file>road.jpg</file>
+        <file>car.png</file>
+        <file>pothole.png</file>
+        <file>clippedRoad.jpg</file>
+    </qresource>
+</RCC>
