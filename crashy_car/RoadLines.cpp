@@ -8,21 +8,30 @@
 
 extern Game * game;
 
-RoadLines::RoadLines(): QObject(), QGraphicsRectItem(0, 0, 10, 70){
-    setPos(395, -70);
+RoadLines::RoadLines(): QObject(), QGraphicsRectItem(0, 0, 70, 5){
+    setPos(485, 136);
     setZValue(-1);
     QBrush brush(QColor(254, 195, 94));
         setBrush(brush);
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
-    timer->start(50);
+    timer->start(15);
 }
 
 void RoadLines::move(){
+    QElapsedTimer timer;
+    timer.start();
 
-    setPos(x(),y()+5);
+    setPos(x() - 9, y()); // Move the lines by a fixed amount
 
-    if(pos().y() - 30 > 600) {
+    // Calculate the time elapsed since the last frame
+    qint64 elapsed = timer.elapsed();
+
+    // Adjust the movement based on the elapsed time
+    qreal offset = - 9.0 * elapsed / 100.0;
+    setPos(x() - offset, y() );
+
+    if(pos().x() + 30 < 0) {
         scene()->removeItem(this);
         delete this;
     }

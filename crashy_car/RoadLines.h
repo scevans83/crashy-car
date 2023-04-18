@@ -15,6 +15,7 @@ public slots:
     void move();
 private:
     qreal speed;
+    qreal lineSpacing;
 };
 
 #endif // ROADLINES_H

@@ -7,13 +7,13 @@
 
 void Player::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_Left) {
-        if(pos().x() > 150){
-            setPos (x () -15,y());
+        if(pos().y() - 10 > 0){
+            setPos (x(),y() -15);
         }
     }
     else if (event->key () == Qt::Key_Right) {
-        if(pos().x() + 100 < 650){
-            setPos (x () +15,y ());
+        if(pos().y() + 31 < 272){
+            setPos (x() ,y()+15);
         }
     }
 }
@@ -27,5 +27,4 @@ void Player::spawn()
 void Player::lines(){
     RoadLines * newline = new RoadLines;
     scene()->addItem(newline);
-
 }

@@ -9,6 +9,8 @@ class Obstacle: public QObject,public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Obstacle();
+    qreal yPos() const { return y(); }
+    void setYPos(qreal y) { setY(y); }
 public slots:
     void move();
 private:
