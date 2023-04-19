@@ -4,6 +4,8 @@
 #include <QGraphicsTextItem>
 #include <QFont>
 #include <QElapsedTimer>
+#include "accel.h"
+#include "accelthread.h"
 
 
 Game::Game(QWidget *parent){
@@ -30,6 +32,16 @@ Game::Game(QWidget *parent){
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
     scene->addItem(player);
+
+    //create accelerometer thread
+    AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
+
+    // connect xValueChanged signal to player's updatePlayerPosition slot
+    QObject::connect(accelerometerThread, SIGNAL(xValueChanged(int)),
+                     player, SLOT(updatePlayerPosition(int)));
+
+    //start accelerometer thread
+    accelerometerThread->start();
 
     //create roadlines
     RoadLines *lines = new RoadLines();

@@ -10,6 +10,10 @@ public:
 public slots:
     void spawn();
     void lines();
+    void updatePlayerPosition(int xAccel);
+private:
+    int threshold = 400;
+
 };
 
 #endif // PLAYER_H

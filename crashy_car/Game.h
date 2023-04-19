@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include "player.h"
 #include "Score.h"
-#include "Health.h"
+//#include "Health.h"
 #include <QElapsedTimer>
 #include "RoadLines.h"
 
@@ -17,7 +17,7 @@ public:
     QGraphicsScene * scene;
     Player * player;
     Score * score;
-    Health * health;
+    //Health * health;
     int scoreInterval = 500; // current interval of the score timer
 
 public slots:

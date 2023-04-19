@@ -17,7 +17,9 @@ SOURCES += \
     RoadLines.cpp \
     Score.cpp \
     main.cpp \
-    player.cpp
+    player.cpp \
+    accel.cpp \
+    accelthread.cpp
 
 HEADERS += \
     Game.h \
@@ -25,7 +27,12 @@ HEADERS += \
     Obstacle.h \
     RoadLines.h \
     Score.h \
-    player.h
+    player.h \
+    accel.h \
+    accelthread.h
+
+# Uncomment this if building for the BeagleBone
+#LIBS += -L/usr/lib -lc
 
 FORMS +=
 
