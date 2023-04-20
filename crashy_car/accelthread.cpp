@@ -24,7 +24,7 @@ AccelerometerThread::AccelerometerThread(int threshold, QObject* parent)
 void AccelerometerThread::run()
 {
     bool m_stopThread = false;
-    printf("Accelerometer thread running.\n");
+//    printf("Accelerometer thread running.\n");
     m_timer = new QTimer();
     m_accelerometer->accel_init();
     while (!m_stopThread) {
@@ -38,7 +38,6 @@ void AccelerometerThread::run()
 void AccelerometerThread::readAccelerometer()
 {
     int xValue = m_accelerometer->get_x();
-    printf("X value: %d", xValue); // Add this line to check the value of xValue
     emit xValueChanged(xValue);
 
 }

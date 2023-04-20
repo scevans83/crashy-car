@@ -4,7 +4,6 @@
 #include <QGraphicsTextItem>
 #include <QFont>
 #include <QElapsedTimer>
-#include "accel.h"
 #include "accelthread.h"
 
 

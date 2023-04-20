@@ -2,10 +2,12 @@
 #define PLAYER_H
 
 #include <QGraphicsPixmapItem>
+#include "Obstacle.h"
 
 class Player: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
+    static std::vector<Obstacle *> obst_vect;
     void keyPressEvent(QKeyEvent * event);
 public slots:
     void spawn();

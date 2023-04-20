@@ -5,6 +5,8 @@
 #include <QGraphicsScene>
 #include "RoadLines.h"
 
+std::vector<Obstacle *> Player::obst_vect;
+
 void Player::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_Left) {
         if(pos().y() - 10 > 0){
@@ -20,7 +22,7 @@ void Player::keyPressEvent(QKeyEvent *event){
 
 void Player::updatePlayerPosition(int xAccel) {
     // Change the player's position based on the accelerometer data
-    printf("X acceleration: %d ",xAccel); // Add this line to check the value of xAccel
+    //printf("X acceleration: %d \n",xAccel);
     if (xAccel > threshold) {
         // Move player to the right
         if(pos().y() + 31 < 272){
@@ -36,7 +38,9 @@ void Player::updatePlayerPosition(int xAccel) {
 
 void Player::spawn()
 {
-    Obstacle * obstacle = new Obstacle;
+    Obstacle * obstacle = new Obstacle(this);
+    obst_vect.push_back(obstacle);
+    //printf("obstacle count:%d \n", obst_vect.size());
     scene()->addItem(obstacle);
 }
 

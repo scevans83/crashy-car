@@ -1,5 +1,6 @@
 #include "Obstacle.h"
 #include "Game.h"
+#include "player.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
@@ -8,7 +9,8 @@
 
 extern Game * game;
 
-Obstacle::Obstacle(): QObject(), QGraphicsPixmapItem(){
+Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
+    : QObject(), QGraphicsPixmapItem(parent), player(player){
     //set random position
 //    geterate:
 //    int random_number = arc4random() % 700;
@@ -28,8 +30,14 @@ Obstacle::Obstacle(): QObject(), QGraphicsPixmapItem(){
 }
 
 void Obstacle::move(){
+//    printf("Obstacles in vector: %zull\n", Player::obst_vect.size());
     QElapsedTimer timer;
     timer.start();
+
+    if (collidesWithItem(player)) {
+        // collision detected
+        printf("COLLISION!\n");
+    }
 
     setPos(x()-9,y());
 
@@ -40,7 +48,12 @@ void Obstacle::move(){
     qreal offset = -9.0 * elapsed / 200.0;
     setPos(x(), y() + offset);
 
-    if(pos().y() + 30 < 0) {
+    if(pos().x() + 30 < 0) {
+        auto it = std::find(Player::obst_vect.begin(), Player::obst_vect.end(), this); // find this object in the vector
+        if (it != Player::obst_vect.end()) {
+            Player::obst_vect.erase(it); // remove this object from the vector
+//            printf("Erased an object from vector\n");
+        }
         scene()->removeItem(this);
         delete this;
     }
