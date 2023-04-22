@@ -31,12 +31,16 @@ Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
 
 void Obstacle::move(){
 //    printf("Obstacles in vector: %zull\n", Player::obst_vect.size());
+    if (!game->gameOver) {
+
     QElapsedTimer timer;
     timer.start();
 
     if (collidesWithItem(player)) {
         // collision detected
         printf("COLLISION!\n");
+        //emit collision();
+        game->loser();
     }
 
     setPos(x()-9,y());
@@ -56,5 +60,6 @@ void Obstacle::move(){
         }
         scene()->removeItem(this);
         delete this;
+    }
     }
 }

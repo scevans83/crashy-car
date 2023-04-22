@@ -4,6 +4,8 @@
 Score::Score(QGraphicsItem *parent): QGraphicsTextItem(parent){
     // initialize the score to 0
     score = 0;
+    prevScore = 0;
+    highScore = 0;
 
     // draw the text
     setPlainText(QString("Score: ") + QString::number(score)); // Score: 0
@@ -28,4 +30,15 @@ void Score::updateScore(int newScore)
 
     // Update the text display
     setPlainText(QString("Score: ") + QString::number(score));
+}
+
+void Score::scoreReset()
+{
+    prevScore = score;
+    if (prevScore > highScore){
+        highScore = prevScore;
+        newHighScore = true;
+    }
+    score = 0;
+
 }

@@ -16,6 +16,7 @@ SOURCES += \
     Obstacle.cpp \
     RoadLines.cpp \
     Score.cpp \
+    buttons.cpp \
     main.cpp \
     player.cpp \
     accel.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     Obstacle.h \
     RoadLines.h \
     Score.h \
+    buttons.h \
     player.h \
     accel.h \
     accelthread.h

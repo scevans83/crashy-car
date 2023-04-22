@@ -5,9 +5,12 @@
 #include <QFont>
 #include <QElapsedTimer>
 #include "accelthread.h"
+#include <QPushButton>
 
 
 Game::Game(QWidget *parent){
+    gameOver = false;
+    gameActive = false;
     // create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,450,272);
@@ -32,15 +35,48 @@ Game::Game(QWidget *parent){
     player->setFocus();
     scene->addItem(player);
 
+    // Create start button
+    QPushButton* startButton = new QPushButton("Start");
+    startButton->setGeometry(200, 100, 100, 50);
+    startButton->setStyleSheet("font-size: 20px; color: white; background-color: green; border: none;");
+
+    // Add start button to the scene
+    scene->addWidget(startButton);
+
+    // Connect start button clicked signal to a lambda function that starts the game
+    QObject::connect(startButton, &QPushButton::clicked, this, [this, startButton, player]() {
+        startButton->hide();
+        startGame();
+        player->setFocus();
+    });
+
+    // Create start button
+    replayButton = new QPushButton("Restart");
+    replayButton->setGeometry(200, 100, 100, 50);
+    replayButton->setStyleSheet("font-size: 20px; color: white; background-color: blue; border: none;");
+
+    // Add start button to the scene
+    scene->addWidget(replayButton);
+    replayButton->setVisible(gameOver);
+
+    // Connect start button clicked signal to a lambda function that starts the game
+    QObject::connect(replayButton, &QPushButton::clicked, this, [this, player]() {
+        replayButton->hide();
+        restartGame();
+        player->setFocus();
+
+    });
+
+
     //create accelerometer thread
-    AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
+    //AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
 
     // connect xValueChanged signal to player's updatePlayerPosition slot
-    QObject::connect(accelerometerThread, SIGNAL(xValueChanged(int)),
-                     player, SLOT(updatePlayerPosition(int)));
+    //QObject::connect(accelerometerThread, SIGNAL(xValueChanged(int)),
+    //                 player, SLOT(updatePlayerPosition(int)));
 
     //start accelerometer thread
-    accelerometerThread->start();
+    //accelerometerThread->start();
 
     //create roadlines
     RoadLines *lines = new RoadLines();
@@ -56,6 +92,10 @@ Game::Game(QWidget *parent){
     QObject::connect(linestimer,SIGNAL(timeout()),player,SLOT(lines()));
     linestimer->start(500);
 
+    if(gameOver){
+        linestimer->stop();
+        timer->stop();
+    }
     //score
     score = new Score();
     scene->addItem(score);
@@ -66,6 +106,7 @@ Game::Game(QWidget *parent){
         // Create a QTimer object to increase the score every 0.1 seconds
         QTimer *scoreTimer = new QTimer(this);
         connect(scoreTimer, &QTimer::timeout, this, [checktimer, this]() mutable {
+            if(gameActive && !gameOver){
             // Check if 0.1 seconds has elapsed
             if (checktimer.elapsed() >= 100) {
                 // Reset the timer
@@ -73,8 +114,9 @@ Game::Game(QWidget *parent){
                 // Increase the score by 1
                 score->increase();
             }
+            }
         });
-        scoreTimer->start(scoreInterval); // start the timer to trigger every 10 milliseconds
+            scoreTimer->start(scoreInterval); // start the timer to trigger every 10 milliseconds
     }
 void Game::increaseScore() {
     // Increase the score by 1
@@ -88,4 +130,23 @@ void Game::increaseScore() {
             scoreTimer->setInterval(scoreInterval); // set the new interval of the score timer
         }
     }
+}
+
+void Game::loser()
+{
+    gameOver = true;
+    replayButton->setVisible(gameOver);
+    score->scoreReset();
+
+}
+
+
+void Game::startGame()
+{
+    gameActive = true;
+}
+
+void Game::restartGame()
+{
+    gameOver = false;
 }

@@ -9,8 +9,12 @@ public:
     void increase();
     int getScore();
     void updateScore(int newScore);
+    void scoreReset();
+    bool newHighScore;
 private:
     int score;
+    int prevScore;
+    int highScore;
 };
 
 #endif // SCORE_H
