@@ -11,6 +11,7 @@
 #include "RoadLines.h"
 #include <QElapsedTimer>
 #include <vector>
+#include <QLabel>
 
 class Game: public QGraphicsView{
 public:
@@ -23,6 +24,8 @@ public:
     int scoreInterval = 500; // current interval of the score timer
     bool gameOver;
     bool gameActive;
+    bool newHighScore;
+    bool firstScore;
 
 
 public slots:
@@ -32,6 +35,10 @@ public slots:
     void restartGame();
 private:
     QPushButton* replayButton;
+    QLabel* scoreLabel;
+    QLabel* highScoreLabel;
+    QLabel* newHighScoreLabel;
+
 };
 
 #endif // GAME_H

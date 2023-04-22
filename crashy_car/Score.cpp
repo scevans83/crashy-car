@@ -1,5 +1,8 @@
 #include "Score.h"
 #include <QFont>
+#include "Game.h"
+
+extern Game * game;
 
 Score::Score(QGraphicsItem *parent): QGraphicsTextItem(parent){
     // initialize the score to 0
@@ -22,6 +25,15 @@ void Score::increase(){
 int Score::getScore(){
     return score;
 }
+int Score::getHighScore(){
+    return highScore;
+}
+
+int Score::getPrevScore()
+{
+    return prevScore;
+}
+
 
 void Score::updateScore(int newScore)
 {
@@ -37,7 +49,7 @@ void Score::scoreReset()
     prevScore = score;
     if (prevScore > highScore){
         highScore = prevScore;
-        newHighScore = true;
+        game->newHighScore = true;
     }
     score = 0;
 

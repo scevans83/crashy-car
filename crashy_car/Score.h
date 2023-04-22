@@ -10,7 +10,8 @@ public:
     int getScore();
     void updateScore(int newScore);
     void scoreReset();
-    bool newHighScore;
+    int getHighScore();
+    int getPrevScore();
 private:
     int score;
     int prevScore;

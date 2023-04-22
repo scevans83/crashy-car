@@ -52,7 +52,7 @@ void Obstacle::move(){
     qreal offset = -9.0 * elapsed / 200.0;
     setPos(x(), y() + offset);
 
-    if(pos().x() + 30 < 0) {
+    if(pos().x() + 30 < 0 || game->gameOver) {
         auto it = std::find(Player::obst_vect.begin(), Player::obst_vect.end(), this); // find this object in the vector
         if (it != Player::obst_vect.end()) {
             Player::obst_vect.erase(it); // remove this object from the vector
