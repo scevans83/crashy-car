@@ -4,5 +4,8 @@
         <file>car.png</file>
         <file>pothole.png</file>
         <file>clippedRoad.jpg</file>
+        <file>pothole2.png</file>
+        <file>palm_tree1.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

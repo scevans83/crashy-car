@@ -29,10 +29,10 @@ void AccelerometerThread::run()
     m_accelerometer->accel_init();
     while (!m_stopThread) {
         readAccelerometer(); // read the accelerometer data and emit the signal
-        QThread::msleep(100); // sleep for 100 milliseconds
+        QThread::msleep(50); // sleep for 100 milliseconds
     }
     connect(m_timer, &QTimer::timeout, this, &AccelerometerThread::readAccelerometer, Qt::QueuedConnection);
-    m_timer->start(50); // read accelerometer every 50ms
+    m_timer->start(25); // read accelerometer every 50ms
 }
 
 void AccelerometerThread::readAccelerometer()

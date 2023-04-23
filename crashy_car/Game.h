@@ -20,6 +20,10 @@ public:
     Score * score;
     Health * health;
     int scoreInterval = 500; // current interval of the score timer
+    QTimer* obst_timer1;
+    QTimer* obst_timer2;
+    QTimer* ls_tree;
+    QTimer* rs_tree;
 
 public slots:
     void increaseScore();

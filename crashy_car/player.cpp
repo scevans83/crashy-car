@@ -1,7 +1,8 @@
 #include "player.h"
 #include <QDebug>
 #include <QKeyEvent>
-#include "Obstacle.h"
+//#include "Obstacle.h"
+//#include "leftSide.h"
 #include <QGraphicsScene>
 #include "RoadLines.h"
 
@@ -23,12 +24,12 @@ void Player::keyPressEvent(QKeyEvent *event){
 void Player::updatePlayerPosition(int xAccel) {
     // Change the player's position based on the accelerometer data
     //printf("X acceleration: %d \n",xAccel);
-    if (xAccel > threshold) {
+    if (xAccel > 200) {
         // Move player to the right
         if(pos().y() + 31 < 272){
             setPos(x(), y() + 15);
         }
-    } else if (xAccel < -threshold) {
+    } else if (xAccel < -400) {
         // Move player to the left
         if(pos().y() - 10 > 0){
             setPos(x(), y() - 15);
@@ -42,6 +43,12 @@ void Player::spawn()
     obst_vect.push_back(obstacle);
     //printf("obstacle count:%d \n", obst_vect.size());
     scene()->addItem(obstacle);
+}
+
+void Player::spawn_ls()
+{
+    LeftSide *ls = new LeftSide(this);
+    scene()->addItem(ls);
 }
 
 void Player::lines(){

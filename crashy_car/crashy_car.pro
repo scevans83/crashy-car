@@ -14,6 +14,7 @@ SOURCES += \
     Game.cpp \
     Health.cpp \
     Obstacle.cpp \
+    leftSide.cpp \
     RoadLines.cpp \
     Score.cpp \
     main.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     Game.h \
     Health.h \
     Obstacle.h \
+    leftSide.h \
     RoadLines.h \
     Score.h \
     player.h \

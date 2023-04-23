@@ -4,6 +4,7 @@
 #include <QGraphicsTextItem>
 #include <QFont>
 #include <QElapsedTimer>
+#include <random>
 #include "accelthread.h"
 
 
@@ -12,7 +13,7 @@ Game::Game(QWidget *parent){
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,450,272);
     QImage bg_img(":/graphics/clippedRoad.jpg");
-    bg_img = bg_img.scaled(272, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation); // swap width and height, adjust scaling factor as needed
+    bg_img = bg_img.scaled(272, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation); // swap width and height
     bg_img = bg_img.mirrored(true, false); // flip horizontally
     bg_img = bg_img.transformed(QTransform().rotate(-90), Qt::SmoothTransformation); // rotate counterclockwise
     setBackgroundBrush(QBrush(bg_img));
@@ -22,15 +23,19 @@ Game::Game(QWidget *parent){
     setFixedSize(450,272);
 
     //create player
-    Player * player = new  Player();
+    Player * player = new Player();
     QPixmap car_orig(":/graphics/car.png");
     QPixmap car_img = car_orig.scaled(QSize(25,50));
     player->setPixmap(car_img);
     player->setPos(60, 136);
     player->setRotation(90);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
+    player->setFocus();    
+    QRectF playerBounds = player->boundingRect();
+    playerBounds.adjust(20,20,-20,-20);
     scene->addItem(player);
+
+
 
     //create accelerometer thread
     AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
@@ -48,13 +53,21 @@ Game::Game(QWidget *parent){
     scene->addItem(lines);
 
     //spawn obstacle
-    QTimer * timer = new QTimer;
-    QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
-    timer->start(2500);
+    obst_timer1 = new QTimer;
+    obst_timer2 = new QTimer;
+    QObject::connect(obst_timer1, SIGNAL(timeout()), player, SLOT(spawn()));
+    QObject::connect(obst_timer2, SIGNAL(timeout()), player, SLOT(spawn()));
+    obst_timer1->start(950);
+    obst_timer2->start(1650);
+
+    //spawn LeftSide trees
+    ls_tree = new QTimer;
+    QObject::connect(ls_tree, SIGNAL(timeout()), player, SLOT(spawn_ls()));
+    ls_tree->start(3000);
 
     QTimer * linestimer = new QTimer;
     QObject::connect(linestimer,SIGNAL(timeout()),player,SLOT(lines()));
-    linestimer->start(500);
+    linestimer->start(250);
 
     //score
     score = new Score();
