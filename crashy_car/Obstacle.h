@@ -15,6 +15,8 @@ public:
     void setYPos(qreal y) { setY(y); }
 public slots:
     void move();
+signals:
+    void collision();
 private:
     qreal speed;
     Player* player;

@@ -4,12 +4,14 @@
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
+#include "QtWidgets/qpushbutton.h"
 #include "player.h"
 #include "Score.h"
 #include "Health.h"
-#include <QElapsedTimer>
 #include "RoadLines.h"
+#include <QElapsedTimer>
 #include <vector>
+#include <QLabel>
 
 class Game: public QGraphicsView{
 public:
@@ -24,9 +26,23 @@ public:
     QTimer* obst_timer2;
     QTimer* ls_tree;
     QTimer* rs_tree;
+    bool gameOver;
+    bool gameActive;
+    bool newHighScore;
+    bool firstScore;
+
 
 public slots:
     void increaseScore();
+    void loser();
+    void startGame();
+    void restartGame();
+private:
+    QPushButton* replayButton;
+    QLabel* scoreLabel;
+    QLabel* highScoreLabel;
+    QLabel* newHighScoreLabel;
+
 };
 
 #endif // GAME_H

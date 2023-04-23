@@ -34,6 +34,8 @@ Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
 
 void Obstacle::move(){
 //    printf("Obstacles in vector: %zull\n", Player::obst_vect.size());
+    if (!game->gameOver) {
+
     QElapsedTimer timer;
     timer.start();
 
@@ -42,6 +44,8 @@ void Obstacle::move(){
     {
         // collision detected
         printf("COLLISION!\n");
+        //emit collision();
+        game->loser();
     }
 
     setPos(x()-3,y());
@@ -53,7 +57,7 @@ void Obstacle::move(){
     qreal offset = -3.0 * elapsed / 200.0;
     setPos(x(), y() + offset);
 
-    if(pos().x() + 30 < 0) {
+    if(pos().x() + 30 < 0 || game->gameOver) {
         auto it = std::find(Player::obst_vect.begin(), Player::obst_vect.end(), this); // find this object in the vector
         if (it != Player::obst_vect.end()) {
             Player::obst_vect.erase(it); // remove this object from the vector
@@ -61,5 +65,6 @@ void Obstacle::move(){
         }
         scene()->removeItem(this);
         delete this;
+    }
     }
 }
