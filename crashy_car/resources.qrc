@@ -7,7 +7,7 @@
         <file>pothole2.png</file>
         <file>palm_tree1.png</file>
         <file>cactus.png</file>
-        <file>startImage.png</file>
+        <file>startScreen.jpg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

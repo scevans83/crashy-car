@@ -47,6 +47,7 @@ private:
     QLabel* scoreLabel;
     QLabel* highScoreLabel;
     QLabel* newHighScoreLabel;
+    QGraphicsPixmapItem* startScreenItem;
 
 };
 

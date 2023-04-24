@@ -32,6 +32,13 @@ Game::Game(QWidget *parent){
     Player * player = new Player();
     scene->addItem(player);
 
+    QImage ss_img(":/graphics/startScreen.jpg");
+    QPixmap startScreen = QPixmap::fromImage(ss_img);
+    startScreenItem = new QGraphicsPixmapItem(startScreen);
+    startScreenItem->setRotation(90);
+    startScreenItem->setPos(465,0);
+    scene->addItem(startScreenItem);
+
     // Create start button
     QPushButton* startButton = new QPushButton("Start");
     startButton->setGeometry(200, 100, 100, 50);
@@ -212,6 +219,7 @@ void Game::startGame()
 {
     gameActive = true;
     incr_diff_timer->start(incr_diff_timer_val);
+    scene->removeItem(startScreenItem);
 }
 
 void Game::restartGame()
