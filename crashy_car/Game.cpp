@@ -7,6 +7,7 @@
 #include <random>
 #include "accelthread.h"
 #include <QPushButton>
+#include <QPropertyAnimation>
 
 
 Game::Game(QWidget *parent){
@@ -29,15 +30,6 @@ Game::Game(QWidget *parent){
 
     //create player
     Player * player = new Player();
-    QPixmap car_orig(":/graphics/car.png");
-    QPixmap car_img = car_orig.scaled(QSize(25,50));
-    player->setPixmap(car_img);
-    player->setPos(60, 136);
-    player->setRotation(90);
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();    
-    QRectF playerBounds = player->boundingRect();
-    playerBounds.adjust(20,20,-20,-20);
     scene->addItem(player);
 
     // Create start button
@@ -76,7 +68,6 @@ Game::Game(QWidget *parent){
 
     });
 
-
     //create accelerometer thread
     AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
 
@@ -88,30 +79,50 @@ Game::Game(QWidget *parent){
     accelerometerThread->start();
 
     //create roadlines
-    RoadLines *lines = new RoadLines();
-    lines->setPos(485, 136); // set the initial position of the RoadLines object
-    scene->addItem(lines);
+//    RoadLines *lines = new RoadLines();
+//    lines->setPos(485, 136); // set the initial position of the RoadLines object
+//    scene->addItem(lines);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> obst1_dis(950,1750);
+    //std::uniform_int_distribution<> obst2_dis(2000,3000);
+    std::uniform_int_distribution<> ls_dis(1500,3000);
+    std::uniform_int_distribution<> rs_dis(1500,3000);
+    obst_timer1_val = obst1_dis(gen);
+    //obst_timer2_val = obst2_dis(gen);
+    ls_cactus_val = ls_dis(gen);
+    rs_cactus_val = rs_dis(gen);
 
     //spawn obstacle
     obst_timer1 = new QTimer;
-    obst_timer2 = new QTimer;
+    //obst_timer2 = new QTimer;
     QObject::connect(obst_timer1, SIGNAL(timeout()), player, SLOT(spawn()));
-    QObject::connect(obst_timer2, SIGNAL(timeout()), player, SLOT(spawn()));
-    obst_timer1->start(950);
-    obst_timer2->start(1650);
+    //QObject::connect(obst_timer2, SIGNAL(timeout()), player, SLOT(spawn()));
+    obst_timer1->start(obst_timer1_val);
+    //obst_timer2->start(obst_timer2_val);
 
-    //spawn LeftSide trees
-    ls_tree = new QTimer;
-    QObject::connect(ls_tree, SIGNAL(timeout()), player, SLOT(spawn_ls()));
-    ls_tree->start(3000);
+    //spawn LeftSide and RightSide catci
+    ls_cactus = new QTimer;
+    QObject::connect(ls_cactus, SIGNAL(timeout()), player, SLOT(spawn_ls()));
+    ls_cactus->start(ls_cactus_val);
+
+    rs_cactus = new QTimer;
+    QObject::connect(rs_cactus, SIGNAL(timeout()), player, SLOT(spawn_rs()));
+    rs_cactus->start(rs_cactus_val);
 
     QTimer * linestimer = new QTimer;
     QObject::connect(linestimer,SIGNAL(timeout()),player,SLOT(lines()));
     linestimer->start(250);
 
+    incr_diff_timer = new QTimer;
+    QObject::connect(incr_diff_timer,SIGNAL(timeout()), player ,SLOT(updateTimers()));
+
     if(gameOver){
         linestimer->stop();
-        timer->stop();
+        obst_timer1->stop();
+        //obst_timer2->stop();
+        ls_cactus->stop();
     }
     //score
     score = new Score();
@@ -136,7 +147,6 @@ Game::Game(QWidget *parent){
     scoreTimer->start(scoreInterval); // start the timer to trigger every 10 milliseconds
 
     //score display
-
     scoreLabel = new QLabel("Score: 0"); // Create a new QLabel object
     scoreLabel->setGeometry(50, 50, 100, 50);
     scoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
@@ -201,12 +211,29 @@ void Game::loser()
 void Game::startGame()
 {
     gameActive = true;
+    incr_diff_timer->start(incr_diff_timer_val);
 }
 
 void Game::restartGame()
 {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> obst1_dis(950,1750);
+    //std::uniform_int_distribution<> obst2_dis(2000,3000);
+    std::uniform_int_distribution<> ls_dis(1500,3000);
+    std::uniform_int_distribution<> rs_dis(1500,3000);
+    obst_timer1_val = obst1_dis(gen);
+    //obst_timer2_val = obst2_dis(gen);
+    ls_cactus_val = ls_dis(gen);
+    rs_cactus_val = rs_dis(gen);
+    obst_timer1->start(obst_timer1_val);
+    //obst_timer2->start(obst_timer2_val);
+    ls_cactus->start(ls_cactus_val);
+    rs_cactus->start(rs_cactus_val);
+    incr_diff_timer_val = 10000;
+    incr_diff_timer->start(incr_diff_timer_val);
+
     gameOver = false;
     scoreLabel->setVisible(false);
     highScoreLabel->setVisible(false);
-
 }

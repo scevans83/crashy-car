@@ -11,6 +11,18 @@
 extern Game * game;
 std::vector<Obstacle *> Player::obst_vect;
 
+Player::Player(QGraphicsItem* parent)
+    : QObject(), QGraphicsPixmapItem(parent){
+
+    QPixmap car_orig(":/graphics/car.png");
+    QPixmap car_img = car_orig.scaled(QSize(25,50));
+    setPixmap(car_img);
+    setPos(60, 136);
+    setRotation(90);
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    setFocus();
+    }
+
 void Player::keyPressEvent(QKeyEvent *event){
     if (game->gameActive && !game->gameOver){
     if (event->key() == Qt::Key_Left) {
@@ -56,9 +68,20 @@ void Player::spawn()
 
 void Player::spawn_ls()
 {
+    if (game->gameActive && !game->gameOver){
     LeftSide *ls = new LeftSide(this);
     scene()->addItem(ls);
+    }
 }
+
+void Player::spawn_rs()
+{
+    if (game->gameActive && !game->gameOver){
+    RightSide *rs = new RightSide(this);
+    scene()->addItem(rs);
+    }
+}
+
 
 void Player::lines(){
     if (game->gameActive && !game->gameOver){
@@ -66,3 +89,21 @@ void Player::lines(){
     scene()->addItem(newline);
     }
 }
+
+void Player::updateTimers()
+{
+    if (game->gameActive && !game->gameOver){
+    printf("Difficulty Increased!\n");
+    game ->obst_timer1_val = game ->obst_timer1_val * 0.9;
+    //game ->obst_timer2_val = game ->obst_timer2_val * 0.9;
+    game ->ls_cactus_val = game ->ls_cactus_val * 0.9;
+    game ->rs_cactus_val = game ->rs_cactus_val * 0.9;
+    game->ls_cactus->setInterval(game->ls_cactus_val);
+    game->rs_cactus->setInterval(game->rs_cactus_val);
+    game->obst_timer1->setInterval(game->obst_timer1_val);
+    //game->obst_timer2->setInterval(game->obst_timer2_val);
+    game->incr_diff_timer_val = game->incr_diff_timer_val *1.10;
+    game->incr_diff_timer->setInterval(game->incr_diff_timer_val);
+    }
+}
+

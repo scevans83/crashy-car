@@ -6,6 +6,8 @@
         <file>clippedRoad.jpg</file>
         <file>pothole2.png</file>
         <file>palm_tree1.png</file>
+        <file>cactus.png</file>
+        <file>startImage.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

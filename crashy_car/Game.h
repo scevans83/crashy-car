@@ -18,14 +18,19 @@ public:
     Game(QWidget * parent=0);
 
     QGraphicsScene * scene;
-    Player * player;
     Score * score;
     Health * health;
     int scoreInterval = 500; // current interval of the score timer
     QTimer* obst_timer1;
     QTimer* obst_timer2;
-    QTimer* ls_tree;
-    QTimer* rs_tree;
+    QTimer* ls_cactus;
+    QTimer* rs_cactus;
+    QTimer* incr_diff_timer;
+    int obst_timer1_val;
+    int obst_timer2_val;
+    int ls_cactus_val;
+    int rs_cactus_val;
+    int incr_diff_timer_val = 10000; // 10 seconds
     bool gameOver;
     bool gameActive;
     bool newHighScore;

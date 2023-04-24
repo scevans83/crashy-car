@@ -27,6 +27,7 @@ Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
     // make the rectangle smaller
     obstacleRect.adjust(10, 10, -10, -10);
     setPixmap (QPixmap (obst));
+
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
     timer->start(5);
@@ -56,6 +57,7 @@ void Obstacle::move(){
     // Adjust the movement based on the elapsed time
     qreal offset = -3.0 * elapsed / 200.0;
     setPos(x(), y() + offset);
+    }//gameover
 
     if(pos().x() + 30 < 0 || game->gameOver) {
         auto it = std::find(Player::obst_vect.begin(), Player::obst_vect.end(), this); // find this object in the vector
@@ -66,5 +68,5 @@ void Obstacle::move(){
         scene()->removeItem(this);
         delete this;
     }
-    }
+
 }
