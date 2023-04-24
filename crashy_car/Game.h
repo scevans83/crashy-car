@@ -12,6 +12,7 @@
 #include <QElapsedTimer>
 #include <vector>
 #include <QLabel>
+#include "startbtn.h"
 
 class Game: public QGraphicsView{
 public:
@@ -35,6 +36,8 @@ public:
     bool gameActive;
     bool newHighScore;
     bool firstScore;
+    StartBtn *start_btn;
+    Player * player_ptr;
 
 
 public slots:

@@ -30,6 +30,7 @@ Game::Game(QWidget *parent){
 
     //create player
     Player * player = new Player();
+    player_ptr = player;
     scene->addItem(player);
 
     QImage ss_img(":/graphics/startScreen.jpg");
@@ -39,20 +40,23 @@ Game::Game(QWidget *parent){
     startScreenItem->setPos(465,0);
     scene->addItem(startScreenItem);
 
-    // Create start button
-    QPushButton* startButton = new QPushButton("Start");
-    startButton->setGeometry(200, 100, 100, 50);
-    startButton->setStyleSheet("font-size: 20px; color: white; background-color: green; border: none;");
+    start_btn = new StartBtn;
+    scene->addItem(start_btn);
 
-    // Add start button to the scene
-    scene->addWidget(startButton);
+    // Create start button
+//    QPushButton* startButton = new QPushButton("Start");
+//    startButton->setGeometry(200, 100, 100, 50);
+//    startButton->setStyleSheet("font-size: 20px; color: white; background-color: green; border: none;");
+
+//    // Add start button to the scene
+//    scene->addWidget(startButton);
 
     // Connect start button clicked signal to a lambda function that starts the game
-    QObject::connect(startButton, &QPushButton::clicked, this, [this, startButton, player]() {
-        startButton->hide();
-        startGame();
-        player->setFocus();
-    });
+//    QObject::connect(startButton, &QPushButton::clicked, this, [this, startButton, player]() {
+//        startButton->hide();
+//        startGame();
+//        player->setFocus();
+//    });
 
     // Create start button
     replayButton = new QPushButton("Restart");
@@ -134,6 +138,7 @@ Game::Game(QWidget *parent){
     //score
     score = new Score();
     scene->addItem(score);
+    score->setVisible(false);
     // Create a QElapsedTimer object to measure elapsed time
     QElapsedTimer checktimer;
     checktimer.start();
@@ -197,6 +202,7 @@ void Game::increaseScore() {
 
 void Game::loser()
 {
+    score->setVisible(false);
     gameOver = true;
     replayButton->setVisible(gameOver);
     score->scoreReset();
@@ -217,6 +223,7 @@ void Game::loser()
 
 void Game::startGame()
 {
+    score->setVisible(true);
     gameActive = true;
     incr_diff_timer->start(incr_diff_timer_val);
     scene->removeItem(startScreenItem);

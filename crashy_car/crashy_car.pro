@@ -17,6 +17,7 @@ SOURCES += \
     leftSide.cpp \
     rightSide.cpp \
     RoadLines.cpp \
+    startbtn.cpp \
     Score.cpp \
     buttons.cpp \
     main.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     leftSide.h \
     rightSide.h \
     RoadLines.h \
+    startbtn.h \
     Score.h \
     buttons.h \
     player.h \
