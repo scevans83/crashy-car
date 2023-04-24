@@ -13,6 +13,8 @@
 #include <vector>
 #include <QLabel>
 #include "startbtn.h"
+#include "restartbtn.h"
+#include "finalscore.h"
 
 class Game: public QGraphicsView{
 public:
@@ -36,7 +38,9 @@ public:
     bool gameActive;
     bool newHighScore;
     bool firstScore;
+    FinalScore *final;
     StartBtn *start_btn;
+    RestartBtn *restart_btn;
     Player * player_ptr;
 
 

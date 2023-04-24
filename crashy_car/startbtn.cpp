@@ -8,7 +8,6 @@ extern Game * game;
 
 StartBtn::StartBtn(QGraphicsItem *parent)
     : QGraphicsRectItem(parent)
-    , m_isHovered(false)
 {
     // Set the size and color of the button
     setRect(50, 86, 50, 100);

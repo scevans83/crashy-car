@@ -43,6 +43,12 @@ Game::Game(QWidget *parent){
     start_btn = new StartBtn;
     scene->addItem(start_btn);
 
+    restart_btn = new RestartBtn;
+    scene->addItem(restart_btn);
+
+    final = new FinalScore;
+    scene->addItem(final);
+
     // Create start button
 //    QPushButton* startButton = new QPushButton("Start");
 //    startButton->setGeometry(200, 100, 100, 50);
@@ -59,25 +65,25 @@ Game::Game(QWidget *parent){
 //    });
 
     // Create start button
-    replayButton = new QPushButton("Restart");
-    replayButton->setGeometry(200, 100, 100, 50);
-    replayButton->setGeometry(sceneRect().width() / 2 - replayButton->width() / 2,
-                              sceneRect().height() / 2 - replayButton->height() / 2,
-                              replayButton->width(),
-                              replayButton->height());
-    replayButton->setStyleSheet("font-size: 20px; color: white; background-color: blue; border: none;");
+//    replayButton = new QPushButton("Restart");
+//    replayButton->setGeometry(200, 100, 100, 50);
+//    replayButton->setGeometry(sceneRect().width() / 2 - replayButton->width() / 2,
+//                              sceneRect().height() / 2 - replayButton->height() / 2,
+//                              replayButton->width(),
+//                              replayButton->height());
+//    replayButton->setStyleSheet("font-size: 20px; color: white; background-color: blue; border: none;");
 
-    // Add start button to the scene
-    scene->addWidget(replayButton);
-    replayButton->setVisible(gameOver);
+//    // Add start button to the scene
+//    scene->addWidget(replayButton);
+//    replayButton->setVisible(gameOver);
 
     // Connect start button clicked signal to a lambda function that starts the game
-    QObject::connect(replayButton, &QPushButton::clicked, this, [this, player]() {
-        replayButton->hide();
-        restartGame();
-        player->setFocus();
+//    QObject::connect(replayButton, &QPushButton::clicked, this, [this, player]() {
+//        replayButton->hide();
+//        restartGame();
+//        player->setFocus();
 
-    });
+//    });
 
     //create accelerometer thread
     AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
@@ -158,33 +164,33 @@ Game::Game(QWidget *parent){
     });
     scoreTimer->start(scoreInterval); // start the timer to trigger every 10 milliseconds
 
-    //score display
-    scoreLabel = new QLabel("Score: 0"); // Create a new QLabel object
-    scoreLabel->setGeometry(50, 50, 100, 50);
-    scoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
-    scoreLabel->setVisible(false); // Set initial visibility to false
-    scoreLabel->setAlignment(Qt::AlignCenter);
-    scene->addWidget(scoreLabel);
+//    //score display
+//    scoreLabel = new QLabel("Score: 0"); // Create a new QLabel object
+//    scoreLabel->setGeometry(50, 50, 100, 50);
+//    scoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
+//    scoreLabel->setVisible(false); // Set initial visibility to false
+//    scoreLabel->setAlignment(Qt::AlignCenter);
+//    scene->addWidget(scoreLabel);
 
-    highScoreLabel = new QLabel("High Score: 0"); // Create a new QLabel object
-    highScoreLabel->setGeometry(250, 50, 120, 50);
-    highScoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
-    highScoreLabel->setVisible(false); // Set initial visibility to false
-    highScoreLabel->setAlignment(Qt::AlignCenter);
-    highScoreLabel->setWordWrap(true);
-    scene->addWidget(highScoreLabel);
+//    highScoreLabel = new QLabel("High Score: 0"); // Create a new QLabel object
+//    highScoreLabel->setGeometry(250, 50, 120, 50);
+//    highScoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
+//    highScoreLabel->setVisible(false); // Set initial visibility to false
+//    highScoreLabel->setAlignment(Qt::AlignCenter);
+//    highScoreLabel->setWordWrap(true);
+//    scene->addWidget(highScoreLabel);
 
-    newHighScoreLabel = new QLabel("New High Score!\n0"); // Create a new QLabel object
-    newHighScoreLabel->setGeometry(250, 50, 100, 50);
-    newHighScoreLabel->setGeometry(sceneRect().width() / 2 - newHighScoreLabel->width() / 2,
-                                   sceneRect().height() / 2 - newHighScoreLabel->height() / 2,
-                                   newHighScoreLabel->width(),
-                                   newHighScoreLabel->height());
-    newHighScoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
-    newHighScoreLabel->setVisible(false); // Set initial visibility to false
-    newHighScoreLabel->setAlignment(Qt::AlignCenter);
-    newHighScoreLabel->setWordWrap(true);
-    scene->addWidget(newHighScoreLabel);
+//    newHighScoreLabel = new QLabel("New High Score!\n0"); // Create a new QLabel object
+//    newHighScoreLabel->setGeometry(250, 50, 100, 50);
+//    newHighScoreLabel->setGeometry(sceneRect().width() / 2 - newHighScoreLabel->width() / 2,
+//                                   sceneRect().height() / 2 - newHighScoreLabel->height() / 2,
+//                                   newHighScoreLabel->width(),
+//                                   newHighScoreLabel->height());
+//    newHighScoreLabel->setStyleSheet("font-size: 20px; color: white; background-color: black; border-radius: 10px; padding: 5px; border: 1px solid gray;");
+//    newHighScoreLabel->setVisible(false); // Set initial visibility to false
+//    newHighScoreLabel->setAlignment(Qt::AlignCenter);
+//    newHighScoreLabel->setWordWrap(true);
+//    scene->addWidget(newHighScoreLabel);
 }
 void Game::increaseScore() {
     // Increase the score by 1
@@ -204,21 +210,41 @@ void Game::loser()
 {
     score->setVisible(false);
     gameOver = true;
-    replayButton->setVisible(gameOver);
+    restart_btn->setVisible(true);
+    restart_btn->text->setVisible(true);
+    final->setVisible(true);
+    final->score_text->setVisible(true);
+    final->hs_text->setVisible(true);
+//    replayButton->setVisible(gameOver);
+    final->score = score->score;
+    final->score_text->setPlainText(QString("Score: ")+ QString::number(final->score));
     score->scoreReset();
-    if(!newHighScore || firstScore){
-        scoreLabel->setText("Score: " + QString::number(score->getPrevScore()));
-        scoreLabel->setVisible(true);
-        highScoreLabel->setText("High Score:\n" + QString::number(score->getHighScore()));
-        highScoreLabel->setVisible(true);
-        if (firstScore)
-            firstScore = false;
+    if (final->score > final->high_score)
+    {
+        final->high_score = final->score;
+        final->hs_text->setPlainText(QString("High Score: ")+ QString::number(final->high_score));
+        final->hs_text->setVisible(false);
+        final->new_hs_text->setVisible(true);
     }
-    else {
-        scoreLabel->setText("New High Score!\n" + QString::number(score->getPrevScore()));
-        scoreLabel->setVisible(true);
-        newHighScore = false;
+    else
+    {
+        final->hs_text->setVisible(true);
+        final->new_hs_text->setVisible(false);
+
     }
+//    if(!newHighScore || firstScore){
+//        scoreLabel->setText("Score: " + QString::number(score->getPrevScore()));
+//        scoreLabel->setVisible(true);
+//        highScoreLabel->setText("High Score:\n" + QString::number(score->getHighScore()));
+//        highScoreLabel->setVisible(true);
+//        if (firstScore)
+//            firstScore = false;
+//    }
+//    else {
+//        scoreLabel->setText("New High Score!\n" + QString::number(score->getPrevScore()));
+//        scoreLabel->setVisible(true);
+//        newHighScore = false;
+//    }
 }
 
 void Game::startGame()
@@ -231,6 +257,13 @@ void Game::startGame()
 
 void Game::restartGame()
 {
+    restart_btn->setVisible(false);
+    restart_btn->text->setVisible(false);
+    final->setVisible(false);
+    final->score_text->setVisible(false);
+    final->hs_text->setVisible(false);
+    final->new_hs_text->setVisible(false);
+    score->setVisible(true);
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> obst1_dis(950,1750);
@@ -249,6 +282,6 @@ void Game::restartGame()
     incr_diff_timer->start(incr_diff_timer_val);
 
     gameOver = false;
-    scoreLabel->setVisible(false);
-    highScoreLabel->setVisible(false);
+//    scoreLabel->setVisible(false);
+//    highScoreLabel->setVisible(false);
 }

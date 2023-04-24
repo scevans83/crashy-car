@@ -12,8 +12,8 @@ public:
     void scoreReset();
     int getHighScore();
     int getPrevScore();
-private:
     int score;
+private:
     int prevScore;
     int highScore;
 };

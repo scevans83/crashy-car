@@ -18,7 +18,9 @@ SOURCES += \
     rightSide.cpp \
     RoadLines.cpp \
     startbtn.cpp \
+    restartbtn.cpp \
     Score.cpp \
+    finalscore.cpp \
     buttons.cpp \
     main.cpp \
     player.cpp \
@@ -33,7 +35,9 @@ HEADERS += \
     rightSide.h \
     RoadLines.h \
     startbtn.h \
+    restartbtn.h \
     Score.h \
+    finalscore.h \
     buttons.h \
     player.h \
     accel.h \

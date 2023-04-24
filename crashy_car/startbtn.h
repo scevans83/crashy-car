@@ -14,9 +14,6 @@ public:
 
 signals:
     void clicked();
-
-private:
-    bool m_isHovered;
 };
 
 #endif // STARTBTN_H
