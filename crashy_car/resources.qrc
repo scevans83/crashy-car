@@ -12,6 +12,7 @@
         <file>startlogo2.png</file>
         <file>startButton.png</file>
         <file>restartButton.png</file>
+        <file>startLogo_resized</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
