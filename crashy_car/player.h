@@ -11,7 +11,6 @@ class Player: public QObject, public QGraphicsPixmapItem{
 public:
     Player(QGraphicsItem* parent = nullptr);
     static std::vector<Obstacle *> obst_vect;
-    //static std::vector<LeftSide *> ls_vect;
     void keyPressEvent(QKeyEvent * event);
     QGraphicsEllipseItem* collisionEllipse;
 public slots:

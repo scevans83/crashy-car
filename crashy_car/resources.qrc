@@ -10,6 +10,8 @@
         <file>startScreen.jpg</file>
         <file>startlogo.png</file>
         <file>startlogo2.png</file>
+        <file>startButton.png</file>
+        <file>restartButton.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

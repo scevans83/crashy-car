@@ -1,8 +1,6 @@
 #include "player.h"
 #include <QDebug>
 #include <QKeyEvent>
-//#include "Obstacle.h"
-//#include "leftSide.h"
 #include "Game.h"
 #include "Obstacle.h"
 #include <QGraphicsScene>
@@ -21,6 +19,7 @@ Player::Player(QGraphicsItem* parent)
     setRotation(90);
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
+
     }
 
 void Player::keyPressEvent(QKeyEvent *event){
@@ -61,7 +60,6 @@ void Player::spawn()
     if (game->gameActive && !game->gameOver){
     Obstacle * obstacle = new Obstacle(this);
     obst_vect.push_back(obstacle);
-    //printf("obstacle count:%d \n", obst_vect.size());
     scene()->addItem(obstacle);
     }
 }
@@ -95,13 +93,11 @@ void Player::updateTimers()
     if (game->gameActive && !game->gameOver){
     printf("Difficulty Increased!\n");
     game ->obst_timer1_val = game ->obst_timer1_val * 0.9;
-    //game ->obst_timer2_val = game ->obst_timer2_val * 0.9;
     game ->ls_cactus_val = game ->ls_cactus_val * 0.9;
     game ->rs_cactus_val = game ->rs_cactus_val * 0.9;
     game->ls_cactus->setInterval(game->ls_cactus_val);
     game->rs_cactus->setInterval(game->rs_cactus_val);
     game->obst_timer1->setInterval(game->obst_timer1_val);
-    //game->obst_timer2->setInterval(game->obst_timer2_val);
     game->incr_diff_timer_val = game->incr_diff_timer_val *1.10;
     game->incr_diff_timer->setInterval(game->incr_diff_timer_val);
     }

@@ -4,7 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
-class StartBtn : public QGraphicsRectItem
+class StartBtn : public QGraphicsPixmapItem
 {
 public:
     StartBtn(QGraphicsItem *parent = nullptr);
