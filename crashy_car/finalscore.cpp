@@ -39,12 +39,3 @@ FinalScore::FinalScore(QGraphicsItem *parent)
     score_text->setVisible(false);
     //text->setTextWidth(rect().height());
 }
-
-//void FinalScore::mousePressEvent(QGraphicsSceneMouseEvent *event)
-//{
-//    //QGraphicsRectItem::mousePressEvent(event);
-//    game->restartGame();
-//    text->setVisible(false);
-//    setVisible(false);
-//    printf("Pressed!\n");
-//}

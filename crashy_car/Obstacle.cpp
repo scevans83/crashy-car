@@ -11,11 +11,6 @@ extern Game * game;
 
 Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
     : QObject(), QGraphicsPixmapItem(parent), player(player){
-    //set random position
-//    geterate:
-//    int random_number = arc4random() % 700;
-//    if(random_number < 150 || random_number + 30 > 650)
-//        goto geterate;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(45,192);
@@ -34,7 +29,6 @@ Obstacle::Obstacle(Player* player, QGraphicsItem* parent)
 }
 
 void Obstacle::move(){
-//    printf("Obstacles in vector: %zull\n", Player::obst_vect.size());
     if (!game->gameOver) {
 
     QElapsedTimer timer;
@@ -45,7 +39,6 @@ void Obstacle::move(){
     {
         // collision detected
         printf("COLLISION!\n");
-        //emit collision();
         game->loser();
     }
 
@@ -57,8 +50,9 @@ void Obstacle::move(){
     // Adjust the movement based on the elapsed time
     qreal offset = -3.0 * elapsed / 200.0;
     setPos(x(), y() + offset);
-    }//gameover
+    }
 
+    //game over
     if(pos().x() + 30 < 0 || game->gameOver) {
         auto it = std::find(Player::obst_vect.begin(), Player::obst_vect.end(), this); // find this object in the vector
         if (it != Player::obst_vect.end()) {

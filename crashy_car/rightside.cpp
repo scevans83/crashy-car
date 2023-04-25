@@ -17,7 +17,6 @@ RightSide::RightSide(Player* player, QGraphicsItem* parent)
     int random_number = dis(gen);
     setPos(510,random_number);
     QPixmap tree (":/graphics/cactus.png");
-    //obst = obst.scaled(30,30);
     setPixmap (QPixmap (tree));
     QRectF collisionRect = this->boundingRect();
     collisionRect.adjust(10, 10, -10, -10); // modify the rect to create a smaller ellipse

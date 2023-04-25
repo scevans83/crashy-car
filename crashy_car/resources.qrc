@@ -8,9 +8,9 @@
         <file>palm_tree1.png</file>
         <file>cactus.png</file>
         <file>startScreen.jpg</file>
-        <file>startlogo.sb-6c6e356c-Lb1vBg</file>
-        <file>startLogoNew.png</file>
         <file>startlogo.png</file>
+        <file>startButton.png</file>
+        <file>restartButton.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

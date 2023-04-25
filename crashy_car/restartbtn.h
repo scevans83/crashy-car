@@ -4,7 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
-class RestartBtn : public QGraphicsRectItem
+class RestartBtn : public QGraphicsPixmapItem
 {
 public:
     RestartBtn(QGraphicsItem *parent = nullptr);
