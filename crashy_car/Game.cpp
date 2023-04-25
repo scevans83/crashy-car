@@ -34,7 +34,7 @@ Game::Game(QWidget *parent){
     player_ptr = player;
     scene->addItem(player);
 
-    QImage ss_img(":/graphics/startLogo_resized.png");
+    QImage ss_img(":/graphics/startLogo_resized");
     QPixmap startScreen = QPixmap::fromImage(ss_img);
     startScreenItem = new QGraphicsPixmapItem(startScreen);
     startScreenItem->setRotation(90);
