@@ -33,11 +33,11 @@ Game::Game(QWidget *parent){
     player_ptr = player;
     scene->addItem(player);
 
-    QImage ss_img(":/graphics/startlogo.png");
+    QImage ss_img(":/graphics/startlogo2.png");
     QPixmap startScreen = QPixmap::fromImage(ss_img);
     startScreenItem = new QGraphicsPixmapItem(startScreen);
     startScreenItem->setRotation(90);
-    startScreenItem->setPos(450,0);
+    startScreenItem->setPos(465,0);
     scene->addItem(startScreenItem);
 
     start_btn = new StartBtn;
