@@ -18,14 +18,14 @@ FinalScore::FinalScore(QGraphicsItem *parent)
     score_text->setDefaultTextColor(Qt::white);
     score_text->setRotation(90);
     score_text->setFont(font);
-    score_text->setPos(245, 75);
+    score_text->setPos(245, 80);
     setVisible(false);
     score_text->setVisible(false);
 
     hs_text = new QGraphicsTextItem(this);
     hs_text->setRotation(90);
     hs_text->setFont(font);
-    hs_text->setPos(300, 50);
+    hs_text->setPos(300, 45);
     hs_text->setDefaultTextColor(Qt::white);
 
     font.setPointSize(14);
