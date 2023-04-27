@@ -11,37 +11,33 @@ CONFIG += c++17
 CONFIG+=sdk_no_version_check
 
 SOURCES += \
-    Game.cpp \
-    Health.cpp \
-    Obstacle.cpp \
-    leftSide.cpp \
-    rightSide.cpp \
-    RoadLines.cpp \
-    startbtn.cpp \
-    restartbtn.cpp \
-    Score.cpp \
-    finalscore.cpp \
-    buttons.cpp \
-    main.cpp \
-    player.cpp \
-    accel.cpp \
-    accelthread.cpp
+    source/Game.cpp \
+    source/Obstacle.cpp \
+    source/leftSide.cpp \
+    source/rightSide.cpp \
+    source/RoadLines.cpp \
+    source/startbtn.cpp \
+    source/restartbtn.cpp \
+    source/Score.cpp \
+    source/finalscore.cpp \
+    source/main.cpp \
+    source/player.cpp \
+    source/accel.cpp \
+    source/accelthread.cpp
 
 HEADERS += \
-    Game.h \
-    Health.h \
-    Obstacle.h \
-    leftSide.h \
-    rightSide.h \
-    RoadLines.h \
-    startbtn.h \
-    restartbtn.h \
-    Score.h \
-    finalscore.h \
-    buttons.h \
-    player.h \
-    accel.h \
-    accelthread.h
+    source/Game.h \
+    source/Obstacle.h \
+    source/leftSide.h \
+    source/rightSide.h \
+    source/RoadLines.h \
+    source/startbtn.h \
+    source/restartbtn.h \
+    source/Score.h \
+    source/finalscore.h \
+    source/player.h \
+    source/accel.h \
+    source/accelthread.h
 
 # Uncomment this if building for the BeagleBone
 #LIBS += -L/usr/lib -lc

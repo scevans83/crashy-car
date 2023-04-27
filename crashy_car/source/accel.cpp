@@ -18,8 +18,6 @@ Accelerometer::Accelerometer()
 {
     x_val = 0;
     file = -1;
-    //y_val = 0;
-    //z_val = 0;
 }
 
 int Accelerometer::accel_init()
@@ -32,7 +30,6 @@ int Accelerometer::accel_init()
         printf("Failed to open the bus. \n");
         return 1;
     }
-//    else printf("Opened bus \n");
     // Get I2C device, LSM9DSO Accelero Magneto I2C address is 0x1D(29)
     ioctl(this->file, I2C_SLAVE, 0x1D);
 
@@ -74,7 +71,6 @@ int Accelerometer::get_x()
         printf("Accelerometer not initialized.\n");
         return -1;
     }
-//    else printf("Initialized accelerometer\n");
     // Read xGyro lsb data from register(0x28)
     char reg[1] = {0x28};
     write(this->file, reg, 1);

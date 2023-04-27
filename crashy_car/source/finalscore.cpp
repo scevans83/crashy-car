@@ -6,10 +6,11 @@
 
 extern Game * game;
 
+//Displays the final score at the end of the game
 FinalScore::FinalScore(QGraphicsItem *parent)
     : QGraphicsRectItem(parent)
 {
-    // Set the size and color of the button
+  // Score text
     QFont font("Arial", 20);
     setRect(200, 11, 100, 250);
     setBrush(QBrush(Qt::black));
@@ -21,13 +22,15 @@ FinalScore::FinalScore(QGraphicsItem *parent)
     score_text->setPos(245, 80);
     setVisible(false);
     score_text->setVisible(false);
-
+    
+    // Text for current high score
     hs_text = new QGraphicsTextItem(this);
     hs_text->setRotation(90);
     hs_text->setFont(font);
     hs_text->setPos(300, 45);
     hs_text->setDefaultTextColor(Qt::white);
 
+    // Text for a new high score
     font.setPointSize(14);
     new_hs_text = new QGraphicsTextItem(this);
     new_hs_text->setRotation(90);
@@ -38,5 +41,4 @@ FinalScore::FinalScore(QGraphicsItem *parent)
 
     setVisible(false);
     score_text->setVisible(false);
-    //text->setTextWidth(rect().height());
 }

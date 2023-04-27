@@ -10,7 +10,6 @@ class FinalScore : public QGraphicsRectItem
 {
 public:
     FinalScore(QGraphicsItem *parent = nullptr);
-    //void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     int score = 0;
     int high_score = 0;
     QGraphicsTextItem *score_text;

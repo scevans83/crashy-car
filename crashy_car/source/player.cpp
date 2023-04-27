@@ -7,7 +7,6 @@
 #include "RoadLines.h"
 
 extern Game * game;
-std::vector<Obstacle *> Player::obst_vect;
 
 Player::Player(QGraphicsItem* parent)
     : QObject(), QGraphicsPixmapItem(parent){
@@ -39,7 +38,6 @@ void Player::keyPressEvent(QKeyEvent *event){
 
 void Player::updatePlayerPosition(int xAccel) {
     // Change the player's position based on the accelerometer data
-    //printf("X acceleration: %d \n",xAccel);
     if(game->gameActive && !game->gameOver){
     if (xAccel > 200) {
         // Move player to the right
@@ -55,15 +53,16 @@ void Player::updatePlayerPosition(int xAccel) {
     }
 }
 
+// Create new pothole object
 void Player::spawn()
 {
     if (game->gameActive && !game->gameOver){
     Obstacle * obstacle = new Obstacle(this);
-    obst_vect.push_back(obstacle);
     scene()->addItem(obstacle);
     }
 }
 
+//Create left side cactcus
 void Player::spawn_ls()
 {
     if (game->gameActive && !game->gameOver){
@@ -72,6 +71,7 @@ void Player::spawn_ls()
     }
 }
 
+//Create right side cactus
 void Player::spawn_rs()
 {
     if (game->gameActive && !game->gameOver){
@@ -80,7 +80,7 @@ void Player::spawn_rs()
     }
 }
 
-
+// Create roadlines
 void Player::lines(){
     if (game->gameActive && !game->gameOver){
     RoadLines * newline = new RoadLines;
@@ -88,6 +88,10 @@ void Player::lines(){
     }
 }
 
+/* Reduce the timer interval for object creation by 10% and increase 
+   the Update timer by 10%. This makes the game get 10% harder after the Update
+   timer expires but then the timer is 10% longer, so the rate of increased 
+   difficulty decreases as the game goes on.*/ 
 void Player::updateTimers()
 {
     if (game->gameActive && !game->gameOver){

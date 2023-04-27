@@ -1,18 +1,13 @@
 <RCC>
     <qresource prefix="/graphics">
-        <file>road.jpg</file>
-        <file>car.png</file>
-        <file>pothole.png</file>
-        <file>clippedRoad.jpg</file>
-        <file>pothole2.png</file>
-        <file>palm_tree1.png</file>
-        <file>cactus.png</file>
-        <file>startScreen.jpg</file>
-        <file>startlogo.png</file>
-        <file>startlogo2.png</file>
-        <file>startButton.png</file>
-        <file>restartButton.png</file>
-        <file>startLogo_resized</file>
+        <file>resources/cactus.png</file>
+        <file>resources/car.png</file>
+        <file>resources/clippedRoad.jpg</file>
+        <file>resources/pothole2.png</file>
+        <file>resources/restartButton.png</file>
+        <file>resources/startButton.png</file>
+        <file>resources/startlogo.png</file>
+        <file>resources/startLogo_resized</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

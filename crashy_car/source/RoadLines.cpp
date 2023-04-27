@@ -20,22 +20,14 @@ RoadLines::RoadLines(): QObject(), QGraphicsRectItem(0, 0, 70, 5){
 
 void RoadLines::move(){
     if(!game->gameOver) {
-    QElapsedTimer timer;
-    timer.start();
+        QElapsedTimer timer;
+        timer.start();
 
-    setPos(x() - 9, y()); // Move the lines by a fixed amount
-
-    // Calculate the time elapsed since the last frame
-    qint64 elapsed = timer.elapsed();
-
-    // Adjust the movement based on the elapsed time
-    qreal offset = - 9.0 * elapsed / 100.0;
-    setPos(x() - offset, y() );
-}
+        setPos(x() - 9, y());
+    }
     if(pos().x() + 30 < 0) {
         scene()->removeItem(this);
         delete this;
     }
-
 }
 

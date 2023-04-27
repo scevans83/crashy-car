@@ -16,24 +16,25 @@ Game::Game(QWidget *parent){
     newHighScore = false;
     firstScore = true;
 
-    // create the scene
+    // create the scene and transform image to be in the correct orientation.
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,450,272);
     QImage bg_img(":/graphics/clippedRoad.jpg");
-    bg_img = bg_img.scaled(272, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation); // swap width and height
-    bg_img = bg_img.mirrored(true, false); // flip horizontally
-    bg_img = bg_img.transformed(QTransform().rotate(-90), Qt::SmoothTransformation); // rotate counterclockwise
+    bg_img = bg_img.scaled(272, 450, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    bg_img = bg_img.mirrored(true, false);
+    bg_img = bg_img.transformed(QTransform().rotate(-90), Qt::SmoothTransformation);
     setBackgroundBrush(QBrush(bg_img));
     setScene(this->scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(450,272);
 
-    //create player
+    //Create player object and add to scene
     Player * player = new Player();
     player_ptr = player;
     scene->addItem(player);
 
+    //Create start screen with title and add to scene
     QImage ss_img(":/graphics/startLogo_resized");
     QPixmap startScreen = QPixmap::fromImage(ss_img);
     startScreenItem = new QGraphicsPixmapItem(startScreen);
@@ -41,25 +42,28 @@ Game::Game(QWidget *parent){
     startScreenItem->setPos(465,0);
     scene->addItem(startScreenItem);
 
+    //Create and add start button and reset buttons to the scene
     start_btn = new StartBtn;
     scene->addItem(start_btn);
 
     restart_btn = new RestartBtn;
     scene->addItem(restart_btn);
 
+    //Create and add final score display object to the scene
     final = new FinalScore;
     scene->addItem(final);
 
-    //create accelerometer thread
+    //Create accelerometer thread
     AccelerometerThread *accelerometerThread = new AccelerometerThread(400, this);
 
-    //connect xValueChanged signal to player's updatePlayerPosition slot
+    //Connect xValueChanged signal to player's updatePlayerPosition slot
     QObject::connect(accelerometerThread, SIGNAL(xValueChanged(int)),
                         player, SLOT(updatePlayerPosition(int)));
 
-    //start accelerometer thread
+    //Start accelerometer thread
     accelerometerThread->start();
 
+    //Randomly create the starting time period for obstacle timers
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> obst1_dis(950,1750);
@@ -69,12 +73,12 @@ Game::Game(QWidget *parent){
     ls_cactus_val = ls_dis(gen);
     rs_cactus_val = rs_dis(gen);
 
-    //spawn obstacle
+    //Spawn obstacle
     obst_timer1 = new QTimer;
     QObject::connect(obst_timer1, SIGNAL(timeout()), player, SLOT(spawn()));
     obst_timer1->start(obst_timer1_val);
 
-    //spawn LeftSide and RightSide catci
+    //Spawn LeftSide and RightSide catci
     ls_cactus = new QTimer;
     QObject::connect(ls_cactus, SIGNAL(timeout()), player, SLOT(spawn_ls()));
     ls_cactus->start(ls_cactus_val);
@@ -82,11 +86,13 @@ Game::Game(QWidget *parent){
     rs_cactus = new QTimer;
     QObject::connect(rs_cactus, SIGNAL(timeout()), player, SLOT(spawn_rs()));
     rs_cactus->start(rs_cactus_val);
-
+    
+    // Create RoadLines objects
     QTimer * linestimer = new QTimer;
     QObject::connect(linestimer,SIGNAL(timeout()),player,SLOT(lines()));
     linestimer->start(250);
-
+    
+    // Create the timer to update other timers
     incr_diff_timer = new QTimer;
     QObject::connect(incr_diff_timer,SIGNAL(timeout()), player ,SLOT(updateTimers()));
 
@@ -95,10 +101,11 @@ Game::Game(QWidget *parent){
         obst_timer1->stop();
         ls_cactus->stop();
     }
-    //score
+    //Create Score object and add to scene
     score = new Score();
     scene->addItem(score);
     score->setVisible(false);
+
     // Create a QElapsedTimer object to measure elapsed time
     QElapsedTimer checktimer;
     checktimer.start();
@@ -133,15 +140,23 @@ void Game::increaseScore() {
     }
 }
 
+/* This function handles the "Game Over" condition
+   It works by: 
+   -toggling visibility on for final score related items and 
+    turning it off for items that are not neccessary. 
+   -Updating the strings to display the current score and
+    the old high score or the new high score text
+   -Setting the "gameOver" condition to true
+ */
 void Game::loser()
 {
+  // Adjust visibility and positions for on screen objects
     score->setVisible(false);
     player_ptr->setPos(60, 136);
     player_ptr->setVisible(false);
 
     gameOver = true;
     restart_btn->setVisible(true);
-    //restart_btn->text->setVisible(true);
     final->setVisible(true);
     final->score_text->setVisible(true);
     final->hs_text->setVisible(true);
@@ -162,6 +177,7 @@ void Game::loser()
     }
 }
 
+/* This function starts the game after the start button is pushed.*/ 
 void Game::startGame()
 {
     score->setVisible(true);
@@ -171,10 +187,12 @@ void Game::startGame()
     player_ptr->setFocus();
 }
 
+/* This function is responsible for resetting the game condition to a
+   playable state after the "gameOver" condition is met. Essentially,
+   it reverts all the changes in the loser() function above.*/
 void Game::restartGame()
 {
     restart_btn->setVisible(false);
-    //restart_btn->text->setVisible(false);
     final->setVisible(false);
     final->score_text->setVisible(false);
     final->hs_text->setVisible(false);
@@ -183,6 +201,8 @@ void Game::restartGame()
     player_ptr->setVisible(true);
     player_ptr->setFocus();
 
+    // Generate new timer periods for obstacles 
+    // Reset the increase difficulty timer
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> obst1_dis(950,1750);

@@ -7,7 +7,6 @@
 #include "QtWidgets/qpushbutton.h"
 #include "player.h"
 #include "Score.h"
-#include "Health.h"
 #include "RoadLines.h"
 #include <QElapsedTimer>
 #include <vector>
@@ -22,7 +21,6 @@ public:
 
     QGraphicsScene * scene;
     Score * score;
-    Health * health;
     int scoreInterval = 500; // current interval of the score timer
     QTimer* obst_timer1;
     QTimer* obst_timer2;

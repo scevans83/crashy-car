@@ -10,7 +10,6 @@ class Player: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Player(QGraphicsItem* parent = nullptr);
-    static std::vector<Obstacle *> obst_vect;
     void keyPressEvent(QKeyEvent * event);
     QGraphicsEllipseItem* collisionEllipse;
 public slots:
