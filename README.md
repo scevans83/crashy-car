@@ -1,4 +1,5 @@
 # Crashy Car
+The goal of the game is to accumulate as many points as possible and avoid crashing into obstacles. Obstacles appear along the top of the screen, and the rate at which they appear increases as the game progresses. The car (player) remains fixed along the vertical axis and the background is also static. Roadlines and obstacles will “move” downward at the same rate making it look like the car is moving forward. Once the obstacles reach the bottom of the screen, they will disappear. The player will be able to steer the car to avoid these obstacles by tilting the accelerometer left or right. If the car hits an obstacle, the game is over and the score is compared to the current high score. If it is greater, it will display a new high score message, otherwise it will display the old high score and the current score.
 
 ## Requirements:
 - Qt 5.15.2
