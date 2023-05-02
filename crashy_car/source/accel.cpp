@@ -20,6 +20,7 @@ Accelerometer::Accelerometer()
     file = -1;
 }
 
+// Initializes the accelerometer on the breakout board.
 int Accelerometer::accel_init()
 {
     char config[2] = {0};
@@ -65,6 +66,7 @@ int Accelerometer::accel_init()
     return 0;
 }
 
+// Reads and returns X value from accelerometer 
 int Accelerometer::get_x()
 {
     if (this->file == -1) {

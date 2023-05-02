@@ -6,6 +6,7 @@
 
 extern Game * game;
 
+
 StartBtn::StartBtn (QGraphicsItem *parent)
     : QGraphicsPixmapItem(parent)
 {
@@ -16,6 +17,7 @@ StartBtn::StartBtn (QGraphicsItem *parent)
     setRotation(90);
 }
 
+// Event handler for when button is "clicked" on touchscreen
 void StartBtn::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     game->startGame();

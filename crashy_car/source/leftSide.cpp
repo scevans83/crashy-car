@@ -9,6 +9,8 @@
 
 extern Game * game;
 
+/* Create a cactus obstacle on the left side at random posistion in specified range and set
+   a timer to update the movement every 5ms*/
 LeftSide::LeftSide(Player* player, QGraphicsItem* parent)
     : QObject(), QGraphicsPixmapItem(parent), player(player){
     std::random_device rd;
@@ -19,7 +21,7 @@ LeftSide::LeftSide(Player* player, QGraphicsItem* parent)
     QPixmap tree (":/graphics/cactus.png");
     setPixmap (QPixmap (tree));
     QRectF collisionRect = this->boundingRect();
-    collisionRect.adjust(10, 10, -10, -10); // modify the rect to create a smaller rectangle
+    collisionRect.adjust(10, 10, -10, -10); // modify the bounding rect used for collision detection
 
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));

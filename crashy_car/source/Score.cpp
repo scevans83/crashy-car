@@ -10,7 +10,7 @@ Score::Score(QGraphicsItem *parent): QGraphicsTextItem(parent){
     prevScore = 0;
     highScore = 0;
 
-    // draw the text
+    // draw the text and rotate it
     setPlainText(QString("Score: ") + QString::number(score)); // Score: 0
     setDefaultTextColor(Qt::black);
     setPos(450, 0);
@@ -44,6 +44,9 @@ void Score::updateScore(int newScore)
     setPlainText(QString("Score: ") + QString::number(score));
 }
 
+/* Resets the score to 0 when the 'Restart' button is pushed
+   Also updates highScore if last round's score was higher than 
+   previous high score */
 void Score::scoreReset()
 {
     prevScore = score;

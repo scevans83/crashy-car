@@ -150,7 +150,7 @@ void Game::increaseScore() {
  */
 void Game::loser()
 {
-  // Adjust visibility and positions for on screen objects
+  // Adjust visibility and reset positions for on screen objects
     score->setVisible(false);
     player_ptr->setPos(60, 136);
     player_ptr->setVisible(false);

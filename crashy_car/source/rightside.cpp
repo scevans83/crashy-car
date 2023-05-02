@@ -9,7 +9,7 @@
 
 extern Game * game;
 
-/* Create a cactus obstacle on the right side in specified range and set
+/* Create a cactus obstacle on the right side at random posistion in specified range and set
    a timer to update the movement every 5ms*/
 RightSide::RightSide(Player* player, QGraphicsItem* parent)
     : QObject(), QGraphicsPixmapItem(parent), player(player){
