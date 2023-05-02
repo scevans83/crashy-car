@@ -18,4 +18,6 @@
 
 ## How to play
 - Hold the accelerometer by the two holes in the top like a game pad. This means the writing will be upside down, but this is the most comfortable way to hold it while getting the best performance and avoiding the wiring.
- - 
+- Touch the `start` button near the bottom of the screen.
+- Steer the accelerometer left or right like a steering wheel to move the car left or right.
+- If you crash, touch the `restart` button to start again.
