@@ -1,4 +1,4 @@
-# crashy-car
+# Crashy Car
 
 ## Requirements:
 - Qt 5.15.2
