@@ -7,6 +7,19 @@
 - 4.3” LCD touchscreen and cape for BeagleBone by element14
 - Adafruit I2C LSM9DS0 breakout board
 
+## File Organization
+- /crashy-car
+  - crashy_car.pro (project file)
+  - /source
+    - contains all the source files the project
+    - /unimplemented
+      - The WIP source files that we didn't implement yet.
+  - /resources
+    - contains all the images used in the project
+    - /unused
+      - placeholder and other images that did not make it into the final game
+  
+
 ## How to Build and Install
 - Connect cape to BeagleBone
 - On the accelerometer breakout board, connect the pins to the GPIO headers on the cape as follows: `SDA` to header `pin 20`, `SCL` to header `pin 19`, `VIN` to header `pin 4` and `GND` to header `pin 2`.
